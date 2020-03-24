@@ -8,6 +8,7 @@ export const Button = ({ handleClick, text }) => {
     </div>
   );
 };
+//
 
 export const Statistics = ({
   clicks,
