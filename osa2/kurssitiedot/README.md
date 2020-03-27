@@ -1,1 +1,1 @@
-Tehtävät 2.1.-2.5.
+Hki fullstack tasks: 2.1.-2.5.
