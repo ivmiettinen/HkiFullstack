@@ -3,10 +3,6 @@ import Part from './Part';
 import AllTasksSum from './TaskSum';
 
 const Content = ({ courses, name }) => {
-  console.log('Content', courses);
-
-  console.log('Content, parts', courses);
-
   const taskSum = courses.parts.reduce(
     (sum, order) => sum + order.exercises,
     0

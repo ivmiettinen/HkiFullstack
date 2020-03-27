@@ -3,9 +3,6 @@ import Header from './Header';
 import Content from './Content';
 
 const Course = ({ course, courseName }) => {
-  console.log('kurssi', course);
-  console.log('Course:', courseName);
-
   return (
     <div>
       <ul>

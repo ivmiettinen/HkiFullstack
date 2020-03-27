@@ -5,7 +5,7 @@ import Course from './components/Course';
 const App = () => {
   const courseName = 'Web development curriculum';
 
-  const course = [
+  const courses = [
     {
       name: 'Half Stack application development',
       id: 1,
@@ -52,7 +52,7 @@ const App = () => {
 
   return (
     <div>
-      <Course course={course} courseName={courseName} />
+      <Course course={courses} courseName={courseName} />
     </div>
   );
 };
