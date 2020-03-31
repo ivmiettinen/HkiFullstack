@@ -1,12 +1,15 @@
 import React from 'react';
 
-const Persons = ({ names, number }) => {
-  console.log('propsit', names);
-  return (
-    <li>
-      Name: {names.name}, number: {names.number}{' '}
-    </li>
-  );
+const Persons = ({ results }) => {
+  let mapping = results.map(result => {
+    return (
+      <li key={result.name}>
+        {result.name} {result.number}
+      </li>
+    );
+  });
+
+  return <>{mapping}</>;
 };
 
 export default Persons;
