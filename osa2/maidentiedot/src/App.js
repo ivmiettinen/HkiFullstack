@@ -12,6 +12,7 @@ function App() {
   const [oneButtonCoutry, setoneButtonCoutry] = useState([]);
   const [onlyOneCountry, setOnlyOneCountry] = useState([]);
 
+  //Fetch countries:
   useEffect(() => {
     axios.get('https://restcountries.eu/rest/v2/all').then(response => {
       console.log('data:', response.data);
@@ -19,6 +20,31 @@ function App() {
       setCountires(response.data);
     });
   }, []);
+
+  //Fetch weather:
+
+  // const api_key = process.env.REACT_APP_API_KEY;
+
+  // const params = {
+  //   access_key: api_key,
+  //   query: countries.capital
+  // };
+
+  // useEffect(() => {
+  //   axios
+  //     .get('http://api.weatherstack.com/current', { params })
+  //     .then(response => {
+  //       const apiResponse = response.data;
+  //       console.log('apiResponse:', apiResponse);
+  //       console.log('region:', response.data.location.region);
+  //       setWeather(apiResponse);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, );
+
+  // console.log('SÄÄ', weather);
 
   const handleCountryFilter = e => {
     setSearchTerm(e.target.value);
@@ -52,6 +78,8 @@ function App() {
     //
 
     setOnlyOneCountry(onlyOneCountry.concat(userPickNation));
+
+    console.log('sitten kun:', onlyOneCountry.capital);
 
     //
     setoneButtonCoutry(oneButtonCoutry.concat(e.target.value));

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../App.css';
 
 const CountryFilter = props => {
   console.log('propseja:', props);
+
+  console.log('propseja3:', props.countries.capital);
+
   // console.log('CountryFilter:', props);
   // console.log(
   //   'languages:',
@@ -10,6 +14,8 @@ const CountryFilter = props => {
   //     return param.name;
   //   })
   // );
+
+  ///////////////////////////
 
   return (
     <div>
@@ -28,6 +34,13 @@ const CountryFilter = props => {
         src={props.countries.flag}
         alt='Country flag'
       ></img>
+
+      <h4>Weather in {props.countries.capital}</h4>
+      <b>Temperature:</b>
+      <p></p>
+      <b>Wind:</b>
+      <p></p>
+      <br />
     </div>
   );
 };
