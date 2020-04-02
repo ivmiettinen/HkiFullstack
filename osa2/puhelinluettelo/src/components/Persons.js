@@ -8,6 +8,7 @@ const Persons = ({ results }) => {
       </li>
     );
   });
+  console.log('pituus:', mapping.length);
 
   return <>{mapping}</>;
 };
