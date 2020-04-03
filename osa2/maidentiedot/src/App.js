@@ -15,7 +15,7 @@ function App() {
   //Fetch countries:
   useEffect(() => {
     axios.get('https://restcountries.eu/rest/v2/all').then(response => {
-      console.log('data:', response.data);
+      // console.log('data:', response.data);
 
       setCountires(response.data);
     });
@@ -34,8 +34,8 @@ function App() {
 
   // >=
   const oneCountry = e => {
-    console.log('MAA:', e.target.value);
-    console.log('ASD');
+    // console.log('value:', e.target.value);
+
     setShowall(!showAll);
 
     //Old style function:
@@ -54,7 +54,7 @@ function App() {
 
     setOnlyOneCountry(onlyOneCountry.concat(userPickNation));
 
-    console.log('sitten kun:', onlyOneCountry.capital);
+    // console.log('capital:', onlyOneCountry.capital);
 
     //
     setoneButtonCountry(oneButtonCountry.concat(e.target.value));

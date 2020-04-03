@@ -1,22 +1,21 @@
 import React from 'react';
 
-const CountryFilterItem = props => {
-  console.log('props:', props);
-  console.log('itemi:', props.weather.current);
+const CountryFilterItem = ({ weather }) => {
+  //   console.log('itemi:', weather.current);
 
-  console.log('weather:', props.weather);
+  //   console.log('weather:', weather);
 
   return (
     <div>
-      {props.weather.map(param => {
+      {weather.map(current => {
         return (
-          <div key={param.weather_code}>
+          <div key={current.weather_code}>
             <b>Temperature:</b>
-            {param.temperature} celsius
+            {current.temperature} celsius
             <br />
-            <img src={param.weather_icons} alt='capital temperature'></img>
+            <img src={current.weather_icons} alt='capital temperature'></img>
             <br />
-            <b>Wind:</b> {param.wind_speed} mph direction {param.wind_dir}
+            <b>Wind:</b> {current.wind_speed} mph direction {current.wind_dir}
           </div>
         );
       })}

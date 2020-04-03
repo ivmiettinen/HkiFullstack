@@ -3,12 +3,12 @@ import axios from 'axios';
 import CountryFilterItem from './CountryFilterItem';
 import '../App.css';
 
-const CountryFilter = props => {
+const CountryFilter = ({ countries }) => {
   const [weather, setWeather] = useState([]);
 
-  console.log('propseja:', props);
+  console.log('propseja:', countries);
 
-  console.log('propseja3:', props.countries.capital);
+  console.log('propseja3:', countries.capital);
 
   // console.log('CountryFilter:', props);
   // console.log(
@@ -27,7 +27,7 @@ const CountryFilter = props => {
 
     axios
       .get(
-        `http://api.weatherstack.com/current?access_key=${api_key}&query=${props.countries.capital}`
+        `http://api.weatherstack.com/current?access_key=${api_key}&query=${countries.capital}`
       )
       .then(response => {
         setWeather([response.data.current]);
@@ -36,7 +36,7 @@ const CountryFilter = props => {
       .catch(error => {
         console.log(error);
       });
-  }, [props.countries.capital]);
+  }, [countries.capital]);
 
   console.log('SÄÄ', weather);
 
@@ -44,19 +44,19 @@ const CountryFilter = props => {
 
   return (
     <div>
-      <h3>{props.countries.name}</h3>
-      <p>Capital: {props.countries.capital}</p>
-      <p>Population: {props.countries.population}</p>
+      <h3>{countries.name}</h3>
+      <p>Capital: {countries.capital}</p>
+      <p>Population: {countries.population}</p>
 
       <h4>Languages:</h4>
 
-      {props.countries.languages.map(param => {
+      {countries.languages.map(param => {
         return <li key={param.iso639_1}>{param.name}</li>;
       })}
 
       <img
         className='flagPicture'
-        src={props.countries.flag}
+        src={countries.flag}
         alt='Country flag'
       ></img>
 
@@ -64,7 +64,7 @@ const CountryFilter = props => {
         <CountryFilterItem weather={weather} key={weather.location} />
       ))} */}
 
-      <h4>Weather in {props.countries.capital}</h4>
+      <h4>Weather in {countries.capital}</h4>
       <CountryFilterItem weather={weather} />
       <br />
     </div>
