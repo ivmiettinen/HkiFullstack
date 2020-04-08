@@ -104,11 +104,13 @@ const App = () => {
       ) {
         const mappia = persons.find(({ name }) => name === `${newName}`);
 
-        console.log('ASD:', mappia.id);
+        console.log('mappia.id', mappia.id);
 
         const id = mappia.id;
         const update = persons.find((n) => n.id === id);
-        const changedNum = { ...persons, number: personObject.number };
+        const changedNum = { ...update, number: personObject.number };
+
+        console.log('changedNum:', changedNum);
 
         console.log('update:', update);
 
@@ -116,7 +118,7 @@ const App = () => {
           .update(id, changedNum)
           .then((returnedPerson) => {
             setPersons(
-              persons.map((per) => (per.id !== id ? persons : returnedPerson))
+              persons.map((per) => (per.id !== id ? per : returnedPerson))
             );
           })
 
