@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Persons from './components/Persons';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
-import axios from 'axios';
+
 import serviceClient from './services/noteServiceClient';
 import noteServiceClient from './services/noteServiceClient';
 
@@ -14,26 +14,10 @@ const App = () => {
 
   //Get data:
 
-  // useEffect(() => {
-  //   noteService.getAll().then((initialNotes) => {
-  //     setNotes(initialNotes);
-  //   });
-  // }, []);
-
-  //
-  // useEffect(() => {
-  //   console.log('effect');
-  //   axios.get('http://localhost:3001/persons').then((response) => {
-  //     console.log('promise fulfilled');
-  //     setPersons(response.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
     serviceClient
       .getAll()
       .then((initialPersons) => {
-        console.log('initialPersons:', initialPersons);
         setPersons(initialPersons);
       })
       .catch((error) => {
@@ -41,31 +25,8 @@ const App = () => {
       });
   }, []);
 
-  //   axios.get('http://localhost:3001/persons').then((response) => {
-  //     console.log('promise fulfilled');
-  //     setPersons(response.data);
-  //   });
-  // }, []);
-
-  console.log('render', persons.length, 'persons');
-
-  //Toinen tapa kirjoittaa:
-  // const hook = () => {
-  //   console.log('effect');
-  //   axios.get('http://localhost:3001/notes').then(response => {
-  //     console.log('promise fulfilled');
-  //     setNotes(response.data);
-  //   });
-  // };
-
-  // useEffect(hook, []);
-
-  //
-
   const addNewPerson = (e) => {
     e.preventDefault();
-
-    console.log('eeeee', e);
 
     const personObject = {
       name: newName,
@@ -78,11 +39,6 @@ const App = () => {
       return param.name;
     });
 
-    // let mapNumber = copyOfPersons.map((param) => {
-    //   console.log('numberi:', param.number);
-    //   return Number(param.number);
-    // });
-
     if (
       mapPersons.includes(personObject.name) &&
       personObject.number.length === 0
@@ -92,7 +48,7 @@ const App = () => {
       return;
     }
 
-    console.log('typeOf:', typeof personObject.number);
+    //Modify phone number of person in a list:
 
     if (
       mapPersons.includes(personObject.name) &&
@@ -104,15 +60,9 @@ const App = () => {
       ) {
         const mappia = persons.find(({ name }) => name === `${newName}`);
 
-        console.log('mappia.id', mappia.id);
-
         const id = mappia.id;
         const update = persons.find((n) => n.id === id);
         const changedNum = { ...update, number: personObject.number };
-
-        console.log('changedNum:', changedNum);
-
-        console.log('update:', update);
 
         noteServiceClient
           .update(id, changedNum)
@@ -129,10 +79,7 @@ const App = () => {
       }
     }
 
-    // if (window.confirm(`Delete ${findId.name} ?`)) {
-    // if (window.confirm(`Delete ${findId.name} ?`))
-
-    //create:
+    //create person:
     else {
       noteServiceClient
         .create(personObject)
@@ -143,16 +90,6 @@ const App = () => {
         .catch((error) => {
           console.log('post response error:', error);
         });
-      //posti:
-      // axios
-      //   .post('http://localhost:3001/persons', personObject)
-      //   .then((response) => {
-      //     console.log('post response:', response.data);
-      //     setPersons(persons.concat(personObject));
-      //   })
-      //   .catch((error) => {
-      //     console.log('error:', error);
-      //   });
     }
 
     setNewName('');
@@ -181,27 +118,15 @@ const App = () => {
   const handleDelete = (e) => {
     const id = Number(e.target.value);
 
-    console.log('id:', id);
-
-    // const poisto = persons.filter((param) => {
-    //   return param.id !== id;
-    // });
-
     let copyOfPersons = [...persons];
 
-    console.log('taulukko', copyOfPersons);
-
     let findId = { ...persons.find((param) => param.id === id) };
-
-    console.log('findi:', findId);
 
     if (window.confirm(`Delete ${findId.name} ?`)) {
       noteServiceClient
         .remove(id)
         .then(() => {
           const filterById = copyOfPersons.filter((param) => param.id !== id);
-
-          console.log('Poisto', filterById);
 
           setPersons(filterById);
         })
@@ -210,8 +135,6 @@ const App = () => {
         });
     }
   };
-
-  const buttoni = <button onClick={handleDelete}>Delete</button>;
 
   return (
     <div>
@@ -231,11 +154,7 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons
-        results={results}
-        buttoni={buttoni}
-        handleDelete={handleDelete}
-      />
+      <Persons results={results} handleDelete={handleDelete} />
     </div>
   );
 };

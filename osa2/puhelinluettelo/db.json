@@ -27,13 +27,8 @@
     },
     {
       "name": "asd",
-      "number": "1234",
-      "id": 6
-    },
-    {
-      "name": "ilkka",
       "number": "12345",
-      "id": 7
+      "id": 6
     }
   ]
 }

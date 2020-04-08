@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Persons = ({ results, buttoni, handleDelete }) => {
+const Persons = ({ results, handleDelete }) => {
   let mapping = results.map((result) => {
     return (
       <li key={result.id}>
@@ -11,7 +11,6 @@ const Persons = ({ results, buttoni, handleDelete }) => {
       </li>
     );
   });
-  console.log('pituus:', mapping.length);
 
   return <>{mapping}</>;
 };
