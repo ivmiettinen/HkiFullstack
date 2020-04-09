@@ -7,6 +7,7 @@ import serviceClient from './services/noteServiceClient';
 import noteServiceClient from './services/noteServiceClient';
 
 import Notification from './components/Notification';
+import SuccessMessage from './components/SuccessMessage';
 import './index.css';
 
 const App = () => {
@@ -84,6 +85,12 @@ const App = () => {
 
           .catch((error) => {
             console.log('error on put:', error);
+            setErrorMessage(
+              `Information of ${newName} has already been removed from server`
+            );
+            setTimeout(() => {
+              setErrorMessage(null);
+            }, 5000);
             setPersons(persons.filter((n) => n.id !== id));
           });
       }
@@ -94,7 +101,6 @@ const App = () => {
       noteServiceClient
         .create(personObject)
         .then((newObject) => {
-          console.log('newObject post response:', newObject);
           setPersons(persons.concat(newObject));
           setSuccessMessage(`Added ${newName}`);
           setTimeout(() => {
@@ -136,8 +142,6 @@ const App = () => {
 
     let findId = { ...persons.find((param) => param.id === id) };
 
-    console.log('findID:', findId);
-
     if (window.confirm(`Delete ${findId.name} ?`)) {
       noteServiceClient
         .remove(id)
@@ -160,10 +164,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification
-        errorMessage={errorMessage}
-        successMessage={successMessage}
-      />
+      <Notification errorMessage={errorMessage} />
+      <SuccessMessage successMessage={successMessage} />
 
       <Filter searchTerm={searchTerm} handleNameFilter={handleNameFilter} />
 
