@@ -6,11 +6,17 @@ import PersonForm from './components/PersonForm';
 import serviceClient from './services/noteServiceClient';
 import noteServiceClient from './services/noteServiceClient';
 
+import Notification from './components/Notification';
+import './index.css';
+
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setnewNumber] = useState('');
   const [searchTerm, setsearchTerm] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const [successMessage, setSuccessMessage] = useState(null);
 
   //Get data:
 
@@ -70,6 +76,10 @@ const App = () => {
             setPersons(
               persons.map((per) => (per.id !== id ? per : returnedPerson))
             );
+            setSuccessMessage(`Changed ${newName}'s phone number successfully`);
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 5000);
           })
 
           .catch((error) => {
@@ -86,6 +96,10 @@ const App = () => {
         .then((newObject) => {
           console.log('newObject post response:', newObject);
           setPersons(persons.concat(newObject));
+          setSuccessMessage(`Added ${newName}`);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 5000);
         })
         .catch((error) => {
           console.log('post response error:', error);
@@ -122,6 +136,8 @@ const App = () => {
 
     let findId = { ...persons.find((param) => param.id === id) };
 
+    console.log('findID:', findId);
+
     if (window.confirm(`Delete ${findId.name} ?`)) {
       noteServiceClient
         .remove(id)
@@ -129,6 +145,10 @@ const App = () => {
           const filterById = copyOfPersons.filter((param) => param.id !== id);
 
           setPersons(filterById);
+          setSuccessMessage(`Deleted name '${findId.name}' successfully`);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 5000);
         })
         .catch((error) => {
           console.log('delete error:', error);
@@ -139,6 +159,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+      />
 
       <Filter searchTerm={searchTerm} handleNameFilter={handleNameFilter} />
 
