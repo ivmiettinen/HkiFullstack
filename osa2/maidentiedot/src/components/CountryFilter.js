@@ -25,6 +25,10 @@ const CountryFilter = ({ countries }) => {
   useEffect(() => {
     const api_key = process.env.REACT_APP_API_KEY;
 
+    http://192.168.2.2/
+
+
+
     axios
       .get(
         `http://api.weatherstack.com/current?access_key=${api_key}&query=${countries.capital}`
