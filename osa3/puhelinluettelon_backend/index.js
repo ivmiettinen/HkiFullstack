@@ -8,11 +8,14 @@ const cors = require('cors')
 
 app.use(cors())
 
+app.use(express.static('build'))
+
 
 //App.use(express.json()) ja bodyParser.json ovat sama asia.
 
 // const bodyParser = require('body-parser')
 
+//
 // app.use(bodyParser.json())
 
 app.use(express.json());
@@ -150,6 +153,8 @@ let persons = [
 
     app.post('/api/persons', (req, res) => {
         const body = req.body;
+
+      console.log('Request body:', body)
 
         let findName = persons.find((param) => {
             return param.name === body.name
