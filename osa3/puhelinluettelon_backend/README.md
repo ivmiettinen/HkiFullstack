@@ -1,5 +1,7 @@
 
-Hki fullstack tasks: 3.1 - ...
+Hki fullstack tasks: 3.1 - 3.11
+
+Tasks from Puhelinluettelo backend to puhelinluetto full stack.
 
 npm start -> server opens at localhost:3001/api/persons
 
