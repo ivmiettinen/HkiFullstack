@@ -118,8 +118,8 @@ app.use(morgan(':method  :url :status :res[content-length] - :response-time ms :
         date: new Date()
       })
 
-      person.save().then(savedNote => {
-        res.json(savedNote.toJSON())
+      person.save().then(savedPerson => {
+        res.json(savedPerson.toJSON())
       })
     })
     
@@ -135,8 +135,8 @@ app.use(morgan(':method  :url :status :res[content-length] - :response-time ms :
       }
     
       Person.findByIdAndUpdate(request.params.id, person, { new: true })
-        .then(updatedNote => {
-          response.json(updatedNote.toJSON())
+        .then(updatedPerson => {
+          response.json(updatedPerson.toJSON())
         })
         .catch(error => next(error))
     })
