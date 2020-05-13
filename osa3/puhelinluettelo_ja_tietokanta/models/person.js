@@ -2,17 +2,9 @@ const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 
 
-
-// if (process.argv.length<3) {
-//   console.log('give password as argument')
-//   process.exit(1)
-// }
-
 const password = process.argv[2]
 
-// const namee = process.argv[3]
 
-// const phoneNumber = process.argv[4]
 
 const url = `mongodb+srv://ilkka123:${password}@contactkeeper-2yisg.mongodb.net/note-app?retryWrites=true&w=majority`
 
@@ -26,20 +18,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   })
 
 
-//Esimerkki:
 
-  // const noteSchema = new mongoose.Schema({
-  //   content: {
-  //     type: String,
-  //     minlength: 5,
-  //     required: true
-  //   },
-  //   date: { 
-  //     type: Date,
-  //     required: true
-  //   },
-  //   important: Boolean
-  // })
   
 
 const noteSchema = new mongoose.Schema({
@@ -52,8 +31,7 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-  // ,
-  // important: Boolean
+ 
 })
 
 noteSchema.set('toJSON', {
