@@ -8,7 +8,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const password = process.argv[2];
 
-const url = `mongodb+srv://ilkka123:${password}@contactkeeper-2yisg.mongodb.net/note-app?retryWrites=true&w=majority`;
+const url = process.env.MONGODB_URI;
 
 console.log("connecting to", url);
 mongoose
