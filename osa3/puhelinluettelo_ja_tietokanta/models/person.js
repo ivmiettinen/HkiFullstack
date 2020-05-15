@@ -6,7 +6,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 
 
-const password = process.argv[2];
+// const password = process.argv[2];
 
 const url = process.env.MONGODB_URI;
 
