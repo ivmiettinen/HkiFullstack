@@ -21,6 +21,7 @@ const allBlogs = [
         author: 'Michael Chan',
         url: 'https://reactpatterns.com/',
         likes: 7,
+        blogs: 1,
         __v: 0,
     },
     {
@@ -30,6 +31,7 @@ const allBlogs = [
         url:
     'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
         likes: 5,
+        blogs: 2,
         __v: 0,
     },
     {
@@ -38,6 +40,7 @@ const allBlogs = [
         author: 'Edsger W. Dijkstra',
         url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
         likes: 12,
+        blogs: 0,
         __v: 0,
     },
     {
@@ -47,6 +50,7 @@ const allBlogs = [
         url:
     'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll',
         likes: 10,
+        blogs: 3,
         __v: 0,
     },
     {
@@ -56,6 +60,7 @@ const allBlogs = [
         url:
     'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
         likes: 0,
+        blogs: 0,
         __v: 0,
     },
     {
@@ -64,6 +69,7 @@ const allBlogs = [
         author: 'Robert C. Martin',
         url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
         likes: 2,
+        blogs: 0,
         __v: 0,
     },
 ]
@@ -128,7 +134,7 @@ describe('totalLikes', () => {
 //4.5
 
 describe('mostPopularBlog', () => {
-    
+
     test('blog with most likes', () => {
 
         let summaryMostPopularBlog = [{
@@ -140,7 +146,45 @@ describe('mostPopularBlog', () => {
 
         const result = listHelper.mostPopularBlog(allBlogs)
 
-        expect(result).toEqual(tama)
+        expect(result).toEqual(summaryMostPopularBlog)
+
+    })
+})
+
+
+//4.6
+
+describe('authorWithMostBlogs', () => {
+    test('author with most blogs', () => {
+        // const result = listHelper.mostBlogs()
+
+        let authorWithMostBlogs = {
+            author: 'Eazy Beazy',
+            blogs: 213,
+        }
+
+        const result = listHelper.mostBlogs()
+
+
+        expect(result).toEqual(authorWithMostBlogs)
+
+    })
+})
+
+//4.7
+
+describe('authorWithMostLikes', () => {
+    test('author with most likes', () => {
+
+        let authorWithMostLikes = {
+            author: 'Trouble Maker',
+            likes: 52
+        }
+
+
+        const result = listHelper.mostLikes()
+
+        expect(result).toEqual(authorWithMostLikes)
 
     })
 })
