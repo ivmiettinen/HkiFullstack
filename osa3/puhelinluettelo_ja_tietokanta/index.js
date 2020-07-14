@@ -47,7 +47,7 @@ app.use(
 
 app.get('/api/persons', (req, res) => {
     Person.find({}).then((persons) => {
-
+    // console.log('Does it work?')
         console.log('LENGTH:', persons.length)
         res.json(persons.map((person) => person.toJSON()))
     })
