@@ -3,8 +3,11 @@ const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 
 const blogSchema = new mongoose.Schema({
-    content: String,
-    important: Boolean
+    id: Number,
+    title: String,
+    author: String,
+    url: String,
+    likes: Number
 })
 
 blogSchema.set('toJSON', {

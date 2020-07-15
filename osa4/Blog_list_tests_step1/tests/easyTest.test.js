@@ -188,3 +188,8 @@ describe('authorWithMostLikes', () => {
 
     })
 })
+
+
+module.exports = {
+    allBlogs
+}
