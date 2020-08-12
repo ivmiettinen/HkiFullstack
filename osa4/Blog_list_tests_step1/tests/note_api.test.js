@@ -8,23 +8,27 @@ const api = supertest(app)
 const Blog = require('../models/blog')
 const { keyBy } = require('lodash')
 
-
 //Alustus:
 
 beforeEach(async () => {
     await Blog.deleteMany({})
     // console.log('cleared')
 
-    const blogObjects = helper.initialNotes.map(blog => new Blog(blog))
+    const blogObjects = helper.initialNotes.map((blog) => new Blog(blog))
 
-    const promiseArray = blogObjects.map(blog => blog.save())
+    const promiseArray = blogObjects.map((blog) => blog.save())
 
     await Promise.all(promiseArray)
-
-
 })
 
+//TAI:
+// beforeEach(async () => {
+//     await Blog.deleteMany({})
+//     await Blog.insertMany(helper.initialNotes)
+// })
+//
 
+//4.8:
 
 test('blogs are returned as json', async () => {
     await api
@@ -34,35 +38,23 @@ test('blogs are returned as json', async () => {
 })
 
 test('all blogs are returned', async () => {
-
-
     const blogsAtStart = await helper.blogsInDb()
 
     const blogToCompare = blogsAtStart
 
-
-
-
-
-
     const response = await api.get('/api/blogs')
 
     expect(response.body).toHaveLength(helper.initialNotes.length)
-
 })
 
 //4.9:
 
 test('blogs identification field is id', async () => {
-
     const blogsAtStart = await helper.blogsInDb()
 
     // const blogToCompare = blogsAtStart
 
-
     // console.log('blogToCompare', blogToCompare)
-
-
 
     const specificId = blogsAtStart[0]
 
@@ -72,26 +64,10 @@ test('blogs identification field is id', async () => {
 
     // const getMany = await api.get('/api/blogs/')
 
-
     // const contents = getMany.body.map(r => r.author)
-
 
     // expect(contents).toContain(
     //     'Edsger W. Dijkstra')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 })
 
 //My own test:
@@ -101,7 +77,6 @@ test('blogs identification field is id', async () => {
 //     const blogsAtStart = await helper.blogsInDb()
 
 //     // console.log('blogsAtStart', blogsAtStart)
-
 
 //     const noteToView = blogsAtStart[0]
 
@@ -119,23 +94,13 @@ test('blogs identification field is id', async () => {
 //     //     __v: 0,
 //     // }
 
-
-
-
 //     expect(noteToView).toHaveProperty('id')
 
-
-
 // })
-
 
 afterAll(() => {
     mongoose.connection.close()
 })
-
-
-
-
 
 // test('all notes are returned', async () => {
 //     const response = await api.get('/api/blogs')

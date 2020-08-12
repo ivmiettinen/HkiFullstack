@@ -2,15 +2,10 @@ const notesRouter = require('express').Router()
 
 const Blog = require('../models/blog')
 
-
-
-
 notesRouter.get('/', async (request, response) => {
-
     const blogs = await Blog.find({})
 
-    response.json(blogs.map(allBlogs => allBlogs.toJSON()))
-
+    response.json(blogs.map((allBlogs) => allBlogs.toJSON()))
 })
 // notesRouter.get('/', (request, response) => {
 //     Blog
@@ -20,48 +15,67 @@ notesRouter.get('/', async (request, response) => {
 //         })
 // })
 
-
-
 notesRouter.get('/:id', (request, response, next) => {
     Blog.findById(request.params.id)
-        .then(note => {
+        .then((note) => {
             if (note) {
                 response.json(note.toJSON())
             } else {
                 response.status(404).end()
             }
         })
-        .catch(error => next(error))
+        .catch((error) => next(error))
 })
 
-notesRouter.post('/', (request, response, next) => {
+notesRouter.post('/', async (request, response, next) => {
     const body = request.body
 
     const note = new Blog({
         title: body.title,
         author: body.author,
         url: body.url,
-        likes: body.likes
+        likes: body.likes,
     })
+    try {
+        const savedNote = await note.save()
+        response.json(savedNote.toJSON())
+    } catch (exception) {
+        next(exception)
+    }
+})
+// notesRouter.post('/', (request, response, next) => {
+//     const body = request.body
 
+//     const note = new Blog({
+//         title: body.title,
+//         author: body.author,
+//         url: body.url,
+//         likes: body.likes
+//     })
 
+//     note.save()
+//         .then(savedBlog => {
+//             response.json(savedBlog.toJSON())
+//         })
+//         .catch(error => next(error))
+// })
 
-
-
-    note.save()
-        .then(savedBlog => {
-            response.json(savedBlog.toJSON())
-        })
-        .catch(error => next(error))
+notesRouter.delete('/:id', async (request, response, next) => {
+    try {
+        await Blog.findByIdAndRemove(request.params.id)
+        response.status(204).end()
+    } catch (exception) {
+        next(exception)
+    }
 })
 
-notesRouter.delete('/:id', (request, response, next) => {
-    Blog.findByIdAndRemove(request.params.id)
-        .then(() => {
-            response.status(204).end()
-        })
-        .catch(error => next(error))
-})
+// notesRouter.delete('/:id', (request, response, next) => {
+//     Blog.findByIdAndRemove(request.params.id)
+//         .then(() => {
+//             response.status(204).end()
+//         })
+//         .catch((error) => next(error))
+// })
 
 notesRouter.put('/:id', (request, response, next) => {
     const body = request.body
@@ -72,10 +86,10 @@ notesRouter.put('/:id', (request, response, next) => {
     }
 
     Blog.findByIdAndUpdate(request.params.id, note, { new: true })
-        .then(updatedNote => {
+        .then((updatedNote) => {
             response.json(updatedNote.toJSON())
         })
-        .catch(error => next(error))
+        .catch((error) => next(error))
 })
 
 module.exports = notesRouter
