@@ -7,6 +7,7 @@ const api = supertest(app)
 
 const Blog = require('../models/blog')
 const { keyBy } = require('lodash')
+const { initialNotes } = require('../tests/test_helper')
 
 //Alustus:
 
@@ -69,6 +70,33 @@ test('blogs identification field is id', async () => {
     // expect(contents).toContain(
     //     'Edsger W. Dijkstra')
 })
+
+//4.10
+
+test('a valid blog post can be added', async () => {
+    const newBlogPost = {
+        id: 321,
+        title: 'JS is very cool',
+        author: 'Jim Halpert',
+        url: 'www.google.fi',
+        likes: 543,
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlogPost)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/blogs')
+
+    const contents = response.body.map(r => r.title)
+
+    expect(response.body).toHaveLength(initialNotes.length + 1)
+    expect(contents).toContain('JS is very cool')
+})
+
+//
 
 //My own test:
 
