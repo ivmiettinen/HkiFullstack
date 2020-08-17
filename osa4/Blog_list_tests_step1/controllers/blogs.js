@@ -2,11 +2,19 @@ const notesRouter = require('express').Router()
 
 const Blog = require('../models/blog')
 
-notesRouter.get('/', async (request, response) => {
-    const blogs = await Blog.find({})
-
-    response.json(blogs.map((allBlogs) => allBlogs.toJSON()))
+notesRouter.get('/', async (request, response, next) => {
+    try {
+        const blogs = await Blog.find({})
+        if (blogs) {
+            response.json(blogs.map((allBlogs) => allBlogs.toJSON()))
+        } else {
+            response.status(404).end()
+        }
+    } catch (exception) {
+        next(exception)
+    }
 })
+
 // notesRouter.get('/', (request, response) => {
 //     Blog
 //         .find({})
@@ -34,11 +42,17 @@ notesRouter.post('/', async (request, response, next) => {
         title: body.title,
         author: body.author,
         url: body.url,
-        likes: body.likes,
+        likes: body.likes === undefined ? 0 : body.likes,
     })
     try {
-        const savedNote = await note.save()
-        response.json(savedNote.toJSON())
+        if (body.title !== undefined && body.url !== undefined) {
+            console.log('tältä näyttää onnistuminen, ', note)
+            const savedNote = await note.save()
+            response.json(savedNote.toJSON())
+        } else {
+            console.log('tilte ja/tai url puuttuvat ', note)
+            response.status(400).send('Bad request')
+        }
     } catch (exception) {
         next(exception)
     }

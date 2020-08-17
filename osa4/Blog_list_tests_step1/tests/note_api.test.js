@@ -90,10 +90,57 @@ test('a valid blog post can be added', async () => {
 
     const response = await api.get('/api/blogs')
 
-    const contents = response.body.map(r => r.title)
+    const contents = response.body.map((r) => r.title)
 
     expect(response.body).toHaveLength(initialNotes.length + 1)
     expect(contents).toContain('JS is very cool')
+})
+
+//4.11
+
+test('if likes field is empty, value is 0', async () => {
+    const newBlogPost2 = {
+        title: 'JS is very cool',
+        author: 'Jim Halpert',
+        url: 'www.google.fi',
+    }
+
+    const newBlogPost3 = {
+        title: 'JS is very cool',
+        author: 'Jim Halpert',
+        url: 'www.google.fi',
+        likes: 0,
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlogPost2)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/blogs')
+
+    const contents = response.body.map((r) => r.likes)
+
+    expect(contents).toContain(newBlogPost3.likes)
+})
+
+//4.12
+
+test('400 bad request for blog posts without  title and url fields', async () => {
+    const blogPostWithoutFields = {
+        author: 'Jim Halpert',
+
+        likes: 0,
+    }
+
+    // const response = await api.get('/api/blogs')
+
+    // const contents = response.body.map((r) => r)
+
+    // console.log('contentssssss', contents)
+
+    await api.post('/api/blogs').send(blogPostWithoutFields).expect(400)
 })
 
 //
