@@ -1,14 +1,12 @@
 const listHelper = require('../utils/list_helper')
 
-
-
 const listWithOneBlog = [
     {
         _id: '5a422aa71b54a676234d17f8',
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         url:
-    'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
+            'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
         likes: 5,
         __v: 0,
     },
@@ -29,7 +27,7 @@ const allBlogs = [
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         url:
-    'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
+            'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
         likes: 5,
         blogs: 2,
         __v: 0,
@@ -48,7 +46,7 @@ const allBlogs = [
         title: 'First class tests',
         author: 'Robert C. Martin',
         url:
-    'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll',
+            'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll',
         likes: 10,
         blogs: 3,
         __v: 0,
@@ -58,7 +56,7 @@ const allBlogs = [
         title: 'TDD harms architecture',
         author: 'Robert C. Martin',
         url:
-    'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
+            'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
         likes: null,
         blogs: 0,
         __v: 0,
@@ -76,18 +74,6 @@ const allBlogs = [
 
 const listWithZeroBlog = []
 
-
-
-//
-
-
-
-
-//
-
-
-
-
 test('dummy returns 1', () => {
     const blogs = []
 
@@ -97,7 +83,6 @@ test('dummy returns 1', () => {
 })
 
 describe('totalLikes', () => {
-
     test('of empty list is zero', () => {
         const result = listHelper.totalLikes(listWithZeroBlog)
         expect(result).toBe(0)
@@ -120,37 +105,25 @@ describe('totalLikes', () => {
 
         expect(result).toBe(36)
     })
-
-    // const blogPosts = [1, 2, 3, 4, 5, 6]
-
-    // const result = listHelper.totalLikes(blogPosts)
-
-    // expect(result).toBe(21)
-
-    // expect(result([1, 2, 3, 4, 5, 6])).toBe(21)
 })
-
 
 //4.5
 
 describe('mostPopularBlog', () => {
-
     test('blog with most likes', () => {
-
-        let summaryMostPopularBlog = [{
-            author: 'Edsger W. Dijkstra',
-            likes: 12,
-            title: 'Canonical string reduction'
-        }]
-
+        let summaryMostPopularBlog = [
+            {
+                author: 'Edsger W. Dijkstra',
+                likes: 12,
+                title: 'Canonical string reduction',
+            },
+        ]
 
         const result = listHelper.mostPopularBlog(allBlogs)
 
         expect(result).toEqual(summaryMostPopularBlog)
-
     })
 })
-
 
 //4.6
 
@@ -165,9 +138,7 @@ describe('authorWithMostBlogs', () => {
 
         const result = listHelper.mostBlogs()
 
-
         expect(result).toEqual(authorWithMostBlogs)
-
     })
 })
 
@@ -175,21 +146,17 @@ describe('authorWithMostBlogs', () => {
 
 describe('authorWithMostLikes', () => {
     test('author with most likes', () => {
-
         let authorWithMostLikes = {
             author: 'Trouble Maker',
-            likes: 52
+            likes: 52,
         }
-
 
         const result = listHelper.mostLikes()
 
         expect(result).toEqual(authorWithMostLikes)
-
     })
 })
 
-
 module.exports = {
-    allBlogs
+    allBlogs,
 }

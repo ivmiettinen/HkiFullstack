@@ -145,26 +145,6 @@ test('400 bad request for blog posts without  title and url fields', async () =>
 
 //
 
-// //4.14
-// test('put can change blog lists like', async () => {
-//     const blogPostWithoutFields = {
-//         author: 'Jim Halpert',
-
-//         likes: 0,
-//     }
-
-//     // const response = await api.get('/api/blogs')
-
-//     // const contents = response.body.map((r) => r)
-
-//     // console.log('contentssssss', contents)
-
-//     await api.put('/api/blogs').send(blogPostWithoutFields).expect(400)
-// })
-
-
-
-
 //My own test:
 
 // test('match id fields', async () => {
