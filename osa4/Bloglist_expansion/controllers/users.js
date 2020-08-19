@@ -49,8 +49,6 @@ usersRouter.post('/', async (request, response, next) => {
     //     })
     // }
 
-
-
     try {
         const savedUser = await user.save()
 
@@ -62,7 +60,9 @@ usersRouter.post('/', async (request, response, next) => {
 
 usersRouter.get('/', async (request, response, next) => {
     try {
-        const allUsers = await User.find({})
+        const allUsers = await User.find({}).populate('blogs', {
+            title: 1,
+        })
 
         if (allUsers) {
             response.json(allUsers.map((r) => r.toJSON()))
