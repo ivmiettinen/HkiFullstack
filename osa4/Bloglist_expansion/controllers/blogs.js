@@ -5,6 +5,7 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 
 const jwt = require('jsonwebtoken')
+const { usersInDb } = require('../tests/test_helper')
 
 // const getTokenFrom = (request) => {
 //     const authorization = request.get('authorization')
@@ -47,6 +48,8 @@ blogsRouter.get('/:id', async (request, response, next) => {
 blogsRouter.post('/', async (request, response, next) => {
     const body = request.body
 
+    console.log('request.body', body)
+
     // const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
     ////////////////
@@ -58,6 +61,8 @@ blogsRouter.post('/', async (request, response, next) => {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
     const user = await User.findById(decodedToken.id)
+
+    console.log('const user = await User.findById(decodedToken.id)', user)
 
     ///////////////////////
 
@@ -92,7 +97,65 @@ blogsRouter.post('/', async (request, response, next) => {
 })
 
 blogsRouter.delete('/:id', async (request, response, next) => {
+    // const body = request.body
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    // const decodedToken = jwt.verify(token, process.env.SECRET)
+    if (!request.token || !decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' })
+    }
+    const user = await User.findById(decodedToken.id)
+
+    // console.log('const user = await User.findById(decodedToken.id)', user)
+
+    console.log('USERin ID ', user._id)
+
+    //Tällä IDllä haluttaisiin poistaa:
+    // console.log('request.params.id', request.params.id)
+
+    // console.log('request.params', request.params)
+
+    const blog = await Blog.findById(request.params.id)
+
+    console.log('USERin ID TYPE OF:', typeof user._id.toString())
+
+    console.log(
+        'user, joka on lisännyt blogin TYPE OF:',
+        typeof blog.user.toString()
+    )
+
+    //////////////////////////////////4.21 Jatka tästä ja try-kohdasta:
+    console.log('ovatko samoja:', user._id.toString() === blog.user.toString())
+
+    // console.log('blogi: ', blog)
+
+    // console.log('blogiID: ', blog._id)
+
+    //Vain tällä IDllä varustettu henkilö voi poistaa blogin
+    console.log('user, joka on lisännyt blogin', blog.user)
+
+    console.log('blog.user.toString', blog.user.toString())
+    console.log('usersInDb.toString', usersInDb.toString)
+    // // const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    // ////////////////
+    // // const token = getTokenFrom(request)
+
+    // const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    // // const decodedToken = jwt.verify(token, process.env.SECRET)
+    // if (!request.token || !decodedToken.id) {
+    //     return response.status(401).json({ error: 'token missing or invalid' })
+    // }
+    // const user = await User.findById(decodedToken.id)
+
+    //////////////////////////////
+
     try {
+        // if (user._id.toString() === blog.user.toString()) {
+        //     console.log('sama ID!')
+        //     console.log('blog.user.toString', blog.user.toString())
+        //     console.log('usersInDb.toString', usersInDb.toString)
+        // }
         await Blog.findByIdAndRemove(request.params.id)
         response.status(204).end()
     } catch (exception) {
