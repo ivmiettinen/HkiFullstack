@@ -18,7 +18,9 @@ const totalLikes = (blogPosts) => {
     }
 }
 
-const favoriteBlog = (mostPopular) => {
+// let reducer = ((a, b) => a.likes > b.likes ? a : b)
+
+const mostPopularBlog = (mostPopular) => {
     let reduceToPopular = mostPopular.reduce(function (a, b) {
         return a.likes > b.likes ? a : b
     })
@@ -30,6 +32,7 @@ const favoriteBlog = (mostPopular) => {
             likes: reduceToPopular.likes,
         },
     ]
+
 
     return titleAuthorLikes
 }
@@ -74,7 +77,26 @@ const mostBlogs = (mostBlogs) => {
         .last()
         .value()
 
+    // console.log('clog - mostPopularAuthor', mostPopularAuthor)
+
     return mostPopularAuthor
+
+    // console.log('mostPopularAuthor: ', mostPopularAuthor)
+
+    // let withReduce = allTheBloggersArray.reduce(function (a, b) {
+    //     return a.blogs > b.blogs ? a : b
+    // })
+
+    // console.log('withReduce,', withReduce)
+
+    // let titleAuthorLikes = [
+    //     {
+    //         author: withReduce.author,
+    //         blogs: withReduce.blogs,
+    //     },
+    // ]
+
+    // console.log('withReduceTheAuthor:', titleAuthorLikes)
 }
 
 //4.7
@@ -86,13 +108,19 @@ const mostLikes = (mostlikes) => {
             author,
             likes: likes.reduce((a, b) => {
                 return a + b.likes
-            }, 0),
+            }, 0)
         }))
         .orderBy('likes', ['asc'])
         .last()
         .value()
 
+
+    // console.log('mostLikes', blogWithMostLikes)
+
     return blogWithMostLikes
 }
 
-module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes }
+
+
+
+module.exports = { dummy, totalLikes, mostPopularBlog, mostBlogs, mostLikes }

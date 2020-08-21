@@ -57,7 +57,7 @@ const allBlogs = [
         author: 'Robert C. Martin',
         url:
             'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
-        likes: 0,
+        likes: null,
         blogs: 0,
         __v: 0,
     },
@@ -88,6 +88,13 @@ describe('totalLikes', () => {
         expect(result).toBe(0)
     })
 
+    //Vastaava tapa kirjoittaa ylempi:
+
+    // test('of empty list is zero', () => {
+    //     // const result = listHelper.totalLikes(listWithZeroBlog)
+    //     expect(listHelper([])).toBe(0)
+    // })
+
     test('when list has only one blog equals the likes of that', () => {
         const result = listHelper.totalLikes(listWithOneBlog)
         expect(result).toBe(5)
@@ -102,7 +109,7 @@ describe('totalLikes', () => {
 
 //4.5
 
-describe('favoriteBlog', () => {
+describe('mostPopularBlog', () => {
     test('blog with most likes', () => {
         let summaryMostPopularBlog = [
             {
@@ -112,7 +119,7 @@ describe('favoriteBlog', () => {
             },
         ]
 
-        const result = listHelper.favoriteBlog(allBlogs)
+        const result = listHelper.mostPopularBlog(allBlogs)
 
         expect(result).toEqual(summaryMostPopularBlog)
     })
@@ -149,3 +156,7 @@ describe('authorWithMostLikes', () => {
         expect(result).toEqual(authorWithMostLikes)
     })
 })
+
+module.exports = {
+    allBlogs,
+}
