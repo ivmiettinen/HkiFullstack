@@ -11,9 +11,8 @@ import BlogForm from './components/BlogForm'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
-    
 
-    const [showAll, setShowAll] = useState(true)
+
 
     const [errorMessage, setErrorMessage] = useState(null)
     const [username, setUsername] = useState('')
@@ -39,28 +38,26 @@ const App = () => {
     const blogFormRef = useRef()
 
     const addBlog = (blogObject) => {
-
         // blogObject.preventDefault()
-
 
         blogFormRef.current.toggleVisibility()
 
-      
-        
+        blogService
+            .create(blogObject)
+            .then((returnedBlog) => {
+                setBlogs(blogs.concat(returnedBlog))
 
-        blogService.create(blogObject).then((returnedBlog) => {
-            setBlogs(blogs.concat(returnedBlog))
-
-             setSuccessMessage(`A new blog ${blogObject.title} by ${blogObject.author} added`)
-            setTimeout(() => {
-                setSuccessMessage(null)
-            }, 5000)
- 
-            
-        })
+                setSuccessMessage(
+                    `A new blog ${blogObject.title} by ${blogObject.author} added`
+                )
+                setTimeout(() => {
+                    setSuccessMessage(null)
+                }, 5000)
+            })
+            .catch((error) => {
+                console.log('error', error)
+            })
     }
-
-   
 
     // const handleBlogChange = (event) => {
     //     setNewTitle(event.target.value)
@@ -110,6 +107,7 @@ const App = () => {
         />
     )
 
+
     // handleUsernameChange,
     // handlePasswordChange,
 
@@ -132,9 +130,7 @@ const App = () => {
                         </p>
                     </div>
                     <Togglable buttonLabel='new blog' ref={blogFormRef}>
-                        <BlogForm
-                            addBlog={addBlog}
-                        />
+                        <BlogForm addBlog={addBlog} />
                     </Togglable>
 
                     {/* <div>
@@ -143,11 +139,16 @@ const App = () => {
                         </button>
                     </div> */}
 
-                    <ul>
-                        {blogs.map((blog) => (
-                            <Blog key={blog.id} blog={blog} />
-                        ))}
-                    </ul>
+                   
+                        <ul>
+                       
+                            {blogs.map((blog) => (
+                                <Blog key={blog.id} blog={blog}  Togglable={Togglable} />
+                                
+                            ))}
+                         
+                        </ul>
+                  
                 </div>
             )}
         </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+// import { v4 as uuidv4 } from 'uuid';
 
 const BlogForm = ({addBlog}) => {
     const [newTitle, setNewTitle] = useState('')
@@ -24,16 +25,6 @@ const BlogForm = ({addBlog}) => {
     }
 
 
-    // const blogObject = {
-    //     // content: newNote,
-    //     // date: new Date().toISOString(),
-    //     // important: Math.random() > 0.5,
-
-    //     title: newTitle,
-    //     author: newAuthor,
-    //     url: newUrl,
-    //     id: blogs.length + 1,
-    // }
 
 
 
