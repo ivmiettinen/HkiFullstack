@@ -57,6 +57,63 @@ const App = () => {
             })
     }
 
+    const addNewLike = (blog) => {
+        console.log('newLike', blog)
+
+        const findId = blogs.find((b) => b.id === blog)
+
+        const id = findId.id
+
+        console.log('findId', findId)
+
+        const changeBlogLikes = { ...findId, likes: findId.likes + 1 }
+
+        // setBlogs(blogs.maps((b => b.id !== id ? b : )))
+
+        // console.log('changeBlogLikes', changeBlogLikes)
+
+        blogService
+            .update(id, changeBlogLikes)
+            .then((returnedBlog) => {
+                setBlogs(
+                    blogs.map((per) => (per.id !== id ? per : returnedBlog))
+                )
+            })
+            .catch((error) => {
+                console.log('error on put:', error)
+            })
+    }
+
+    const deleteBlog = (del) => {
+        console.log('del', del)
+
+        console.log('type oli', typeof del)
+
+        const id = del
+
+        console.log('typeofffff', typeof id)
+
+        const copyOfBlogs = [...blogs]
+
+        const findBlog = { ...copyOfBlogs.find((a) => a.id === del) }
+
+        console.log('ONKO', findBlog)
+        const filterById = copyOfBlogs.filter((p) => p.id !== id)
+
+        if (window.confirm(`Delete blog ${findBlog.title} ?`)) {
+            blogService
+                .remove(id)
+                .then(() => {
+                    // console.log('filterById', filterById)
+
+                    setBlogs(filterById)
+                })
+                .catch((error) => {
+                    console.log('delete error:', error)
+                })
+        }
+    }
+
     // const handleBlogChange = (event) => {
     //     setNewTitle(event.target.value)
     // }
@@ -137,13 +194,17 @@ const App = () => {
                     </div> */}
 
                     <ul>
-                        {blogs.map((blog) => (
-                            <Blog
-                                key={blog.id}
-                                blog={blog}
-                                Togglable={Togglable}
-                            />
-                        ))}
+                        {blogs
+                            .sort((a, b) => b.likes - a.likes)
+                            .map((blog) => (
+                                <Blog
+                                    key={blog.id}
+                                    blog={blog}
+                                    Togglable={Togglable}
+                                    deleteBlog={deleteBlog}
+                                    addNewLike={addNewLike}
+                                />
+                            ))}
                     </ul>
                 </div>
             )}

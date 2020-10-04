@@ -13,7 +13,7 @@ const titleAndAuthor = {
     fontWeight: 'bold',
 }
 
-const Blog = ({ blog, Togglable }) => {
+const Blog = ({ addNewLike, blog, deleteBlog, Togglable }) => {
     // console.log('all blogs:', blog)
 
     return (
@@ -21,9 +21,31 @@ const Blog = ({ blog, Togglable }) => {
             <p style={titleAndAuthor}>
                 {blog.title} by {blog.author}
             </p>
+
             <Togglable buttonLabel='view'>
                 <p>url: {blog.url} </p>
                 <p>likes: {blog.likes} </p>
+
+                <p>
+                    <button
+                        type='newLike'
+                        value={blog.title}
+                        name='newLike'
+                        onClick={() => addNewLike(blog.id)}
+                    >
+                        like
+                    </button>
+                </p>
+                <p>
+                    <button
+                        type='deleteBlog'
+                        value={blog.id}
+                        name='deleteBlog'
+                        onClick={() => deleteBlog(blog.id)}
+                    >
+                        delete
+                    </button>
+                </p>
             </Togglable>
         </div>
     )
