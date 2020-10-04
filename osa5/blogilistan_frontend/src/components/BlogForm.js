@@ -1,38 +1,28 @@
 import React, { useState } from 'react'
 // import { v4 as uuidv4 } from 'uuid';
 
-const BlogForm = ({addBlog}) => {
+const BlogForm = ({ addBlog }) => {
     const [newTitle, setNewTitle] = useState('')
     const [newAuthor, setNewAuthor] = useState('')
     const [newUrl, setNewUrl] = useState('')
 
-
-
     const createBlog = (event) => {
-
         event.preventDefault()
 
         addBlog({
             title: newTitle,
             author: newAuthor,
-            url: newUrl
+            url: newUrl,
         })
 
-            setNewTitle('')
-            setNewAuthor('')
-            setNewUrl('')
-
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
     }
-
-
-
-
-
 
     return (
         <div>
             <h2>Create a new blog</h2>
-            
 
             <form onSubmit={createBlog}>
                 title:{' '}

@@ -12,15 +12,13 @@ import BlogForm from './components/BlogForm'
 const App = () => {
     const [blogs, setBlogs] = useState([])
 
-
-
     const [errorMessage, setErrorMessage] = useState(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
 
     const [successMessage, setSuccessMessage] = useState(null)
-    const [loginVisible, setLoginVisible] = useState(false)
+    // const [loginVisible, setLoginVisible] = useState(false)
 
     useEffect(() => {
         blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -63,7 +61,7 @@ const App = () => {
     //     setNewTitle(event.target.value)
     // }
 
-    const logOut = (e) => {
+    const logOut = () => {
         window.localStorage.clear()
         setUser(null)
     }
@@ -90,7 +88,7 @@ const App = () => {
             setPassword('')
         } catch (exception) {
             console.log('error on put:', exception)
-            setErrorMessage(`Wrong username or password`)
+            setErrorMessage('Wrong username or password')
             setTimeout(() => {
                 setErrorMessage(null)
             }, 5000)
@@ -106,7 +104,6 @@ const App = () => {
             handleLogin={handleLogin}
         />
     )
-
 
     // handleUsernameChange,
     // handlePasswordChange,
@@ -139,16 +136,15 @@ const App = () => {
                         </button>
                     </div> */}
 
-                   
-                        <ul>
-                       
-                            {blogs.map((blog) => (
-                                <Blog key={blog.id} blog={blog}  Togglable={Togglable} />
-                                
-                            ))}
-                         
-                        </ul>
-                  
+                    <ul>
+                        {blogs.map((blog) => (
+                            <Blog
+                                key={blog.id}
+                                blog={blog}
+                                Togglable={Togglable}
+                            />
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>
