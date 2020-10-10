@@ -1,0 +1,1 @@
+Hki fullstack tasks: 6.3 - 6.8
