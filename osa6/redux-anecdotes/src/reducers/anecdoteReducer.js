@@ -1,4 +1,4 @@
-const anecdotesAtStart = [
+export const anecdotesAtStart = [
     'If it hurts, do it more often',
     'Adding manpower to a late software project makes it later!',
     'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
@@ -26,7 +26,7 @@ export const voteAnecdote = (id) => {
     }
 }
 
-const initialState = anecdotesAtStart.map(createAnecdote)
+export const initialState = anecdotesAtStart.map(createAnecdote)
 
 const anecdoteReducer = (state = initialState, action) => {
     // console.log('state now: ', state)

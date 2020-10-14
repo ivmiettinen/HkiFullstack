@@ -13,9 +13,9 @@ const Notification = () => {
     }
     return (
         <div style={style}>
-            {notification.map((message) => (
-                <div key={message.message}>
-                    <div>{message.message}</div>
+            {notification.map((notif, index) => (
+                <div key={index}>
+                    <div>{notif.content}</div>
                 </div>
             ))}
         </div>
