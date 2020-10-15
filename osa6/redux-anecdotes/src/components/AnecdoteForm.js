@@ -9,7 +9,7 @@ const AnecdoteForm = () => {
 
     const addAnecdote = (e) => {
 
-        console.log('EEEEEEEEE', e.target.anecdote.value)
+        // console.log('e.target.anecdote.value', e.target.anecdote.value)
 
 
         e.preventDefault()

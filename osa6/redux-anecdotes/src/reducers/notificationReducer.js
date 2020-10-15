@@ -40,7 +40,7 @@ const newMessageReducer = (state = messageAtStart, action) => {
             return newState
 
         case 'NEW_ANECDOTE_NOTIF':
-            console.log('BBBBBBB', action.content)
+            // console.log('action.content', action.content)
 
             const newAnecNotif = [{content: action.content}]
 
