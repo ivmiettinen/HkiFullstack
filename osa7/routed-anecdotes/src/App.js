@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams,
+} from 'react-router-dom'
 
 const Menu = ({ anecdotes, addNew }) => {
     const padding = {
@@ -8,7 +14,7 @@ const Menu = ({ anecdotes, addNew }) => {
     return (
         <Router>
             <div>
-                <Link style={padding} to='/anecdotes'>
+                <Link style={padding} to='/'>
                     anecdotes
                 </Link>
                 <Link style={padding} to='/create'>
@@ -26,24 +32,55 @@ const Menu = ({ anecdotes, addNew }) => {
                 <Route path='/create'>
                     <CreateNew addNew={addNew} />
                 </Route>
+                <Route path='/anecdotes/:id'>
+                    <Anecdote anecdotes={anecdotes} />
+                </Route>
                 <Route path='/'>
                     <AnecdoteList anecdotes={anecdotes} />
                 </Route>
+                
             </Switch>
         </Router>
     )
 }
 
-const AnecdoteList = ({ anecdotes }) => (
-    <div>
-        <h2>Anecdotes</h2>
-        <ul>
-            {anecdotes.map((anecdote) => (
-                <li key={anecdote.id}>{anecdote.content}</li>
-            ))}
-        </ul>
-    </div>
-)
+const AnecdoteList = ({ anecdotes }) => {
+  console.log('anecdotelist', anecdotes)
+    return (
+        <div>
+            <h2>Anecdotes</h2>
+            <ul>
+                {anecdotes.map((anecdote) => (
+                    <li key={anecdote.id}>
+                        <Link to={`/anecdotes/${anecdote.id}`}>
+                            {anecdote.content}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
+const Anecdote = ({ anecdotes }) => {
+    console.log('Anecdote', anecdotes)
+    const id = useParams().id
+    const anecdote = anecdotes.find((n) => n.id === id)
+
+    
+    return (
+        <div>
+            <h2>{anecdote.content}</h2>
+            <div>{anecdote.author}</div>
+            <div>{anecdote.info}</div>
+            <div>{anecdote.votes}</div>
+            <div>{anecdote.id}</div>
+            <div>
+
+            </div>
+        </div>
+    )
+}
 
 const About = () => (
     <div>
