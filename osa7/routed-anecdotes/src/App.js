@@ -5,6 +5,7 @@ import {
     Route,
     Link,
     useParams,
+    useHistory,
 } from 'react-router-dom'
 
 const Menu = ({ anecdotes, addNew }) => {
@@ -38,14 +39,13 @@ const Menu = ({ anecdotes, addNew }) => {
                 <Route path='/'>
                     <AnecdoteList anecdotes={anecdotes} />
                 </Route>
-                
             </Switch>
         </Router>
     )
 }
 
 const AnecdoteList = ({ anecdotes }) => {
-  console.log('anecdotelist', anecdotes)
+    // console.log('anecdotelist', anecdotes)
     return (
         <div>
             <h2>Anecdotes</h2>
@@ -63,11 +63,10 @@ const AnecdoteList = ({ anecdotes }) => {
 }
 
 const Anecdote = ({ anecdotes }) => {
-    console.log('Anecdote', anecdotes)
+    // console.log('Anecdote', anecdotes)
     const id = useParams().id
     const anecdote = anecdotes.find((n) => n.id === id)
 
-    
     return (
         <div>
             <h2>{anecdote.content}</h2>
@@ -75,9 +74,7 @@ const Anecdote = ({ anecdotes }) => {
             <div>{anecdote.info}</div>
             <div>{anecdote.votes}</div>
             <div>{anecdote.id}</div>
-            <div>
-
-            </div>
+            <div></div>
         </div>
     )
 }
@@ -124,6 +121,8 @@ const CreateNew = (props) => {
     const [author, setAuthor] = useState('')
     const [info, setInfo] = useState('')
 
+    const history = useHistory()
+
     const handleSubmit = (e) => {
         e.preventDefault()
         props.addNew({
@@ -132,6 +131,7 @@ const CreateNew = (props) => {
             info,
             votes: 0,
         })
+        history.push('/')
     }
 
     return (
@@ -168,7 +168,8 @@ const CreateNew = (props) => {
     )
 }
 
-const App = () => {
+const App = (props) => {
+
     const [anecdotes, setAnecdotes] = useState([
         {
             content: 'If it hurts, do it more often',
@@ -192,6 +193,18 @@ const App = () => {
     const addNew = (anecdote) => {
         anecdote.id = (Math.random() * 10000).toFixed(0)
         setAnecdotes(anecdotes.concat(anecdote))
+
+        console.log('anecdoteanecdoteanecdote', anecdote)
+
+
+
+
+        setNotification(
+            `a new anecdote ${anecdote.content} created`, 
+            setTimeout(() => {
+              setNotification(setNotification(''))
+            }, 10000)
+        )
     }
 
     const anecdoteById = (id) => anecdotes.find((a) => a.id === id)
@@ -210,8 +223,9 @@ const App = () => {
     return (
         <div>
             <h1>Software anecdotes</h1>
+            <p>{notification}</p>
             <Menu anecdotes={anecdotes} addNew={addNew} />
-
+          
             <Footer />
         </div>
     )
