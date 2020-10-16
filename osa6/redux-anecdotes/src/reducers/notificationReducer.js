@@ -1,3 +1,5 @@
+// import anecdoteService from '../services/anecdotes'
+
 const messageAtStart = [{ content: '' }]
 
 export const newMessage = (message) => {
@@ -21,6 +23,29 @@ export const showNewAnecdoteNotif = (anecdote) => {
     }
 }
 
+
+const emptyNotif = () => {
+    return async (dispatch) => {
+        dispatch({ type: 'EMPTY_MESSAGE', content: '' })
+    }
+}
+
+export const setNewNotification = (notif, time) => {
+    // console.log('NOTIF', notif)
+    // console.log('TIME:', time)
+    return async (dispatch) => {
+        dispatch({
+            type: 'NEW_ANECDOTE_NOTIF',
+            content: notif,
+        })
+        setTimeout(() => {
+            dispatch(emptyNotif())
+        }, time * 500)
+    }
+}
+
+
+
 const newMessageReducer = (state = messageAtStart, action) => {
     // console.log('action', action)
 
@@ -42,9 +67,14 @@ const newMessageReducer = (state = messageAtStart, action) => {
         case 'NEW_ANECDOTE_NOTIF':
             // console.log('action.content', action.content)
 
-            const newAnecNotif = [{content: action.content}]
+            const newAnecNotif = [{ content: action.content }]
 
             return newAnecNotif
+
+        case 'EMPTY_MESSAGE':
+            console.log('ACTION:', action)
+            const newState2 = [action.content]
+            return newState2
 
         default:
             return state

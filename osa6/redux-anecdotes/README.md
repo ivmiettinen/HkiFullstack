@@ -1,1 +1,1 @@
-Hki fullstack tasks: 6.3 - 6.11
+Hki fullstack tasks: 6.3 - 6.11 & 6.13 - 6.18

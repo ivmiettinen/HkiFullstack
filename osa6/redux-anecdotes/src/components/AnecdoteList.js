@@ -8,6 +8,8 @@ const AnecdoteList = () => {
 
     const anecdotes = useSelector((state) => state.anecdotes)
 
+    // console.log('anecdotes:', anecdotes)
+
     const vote = (id) => {
         // console.log('vote', id)
 
